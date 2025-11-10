@@ -57,7 +57,7 @@ class HalloweenScareSystem:
         sounds_dir = Path("scary_sounds")
         
         if not sounds_dir.exists():
-            print("⚠️  'scary_sounds' folder not found, creating it...")
+            print("Warning: 'scary_sounds' folder not found, creating it...")
             sounds_dir.mkdir(exist_ok=True)
             print("   Please add MP3/WAV files to the 'scary_sounds' folder")
             return
@@ -70,16 +70,16 @@ class HalloweenScareSystem:
                 try:
                     sound = pygame.mixer.Sound(str(audio_file))
                     self.audio_files.append(sound)
-                    print(f"✅ Loaded: {audio_file.name}")
+                    print(f" Loaded: {audio_file.name}")
                 except Exception as e:
-                    print(f"❌ Failed to load {audio_file.name}: {e}")
+                    print(f" Failed to load {audio_file.name}: {e}")
         
         if not self.audio_files:
-            print("⚠️  No audio files found in 'scary_sounds' folder")
+            print(" No audio files found in 'scary_sounds' folder")
             print("   Using default beep sound")
             self.create_default_sound()
         else:
-            print(f"🔊 Loaded {len(self.audio_files)} scary sound(s)")
+            print(f" Loaded {len(self.audio_files)} scary sound(s)")
     
     def create_default_sound(self):
         """Create a default scary beep if no audio files found"""
@@ -105,7 +105,7 @@ class HalloweenScareSystem:
                 sound.play()
                 return True
         except Exception as e:
-            print(f"❌ Audio error: {e}")
+            print(f" Audio error: {e}")
             return False
     
     def detect_motion(self, frame):
@@ -293,7 +293,7 @@ class HalloweenGUI:
         left_panel.pack(side='left', fill='both', padx=5)
         
         # Connection settings
-        conn_frame = ttk.LabelFrame(left_panel, text="📹 Camera Settings", padding=10)
+        conn_frame = ttk.LabelFrame(left_panel, text=" Camera Settings", padding=10)
         conn_frame.pack(fill='x', pady=5)
         
         ttk.Label(conn_frame, text="Stream URL:").pack(anchor='w')
@@ -302,12 +302,12 @@ class HalloweenGUI:
         self.url_entry.pack(fill='x', pady=5)
         
         # Control buttons
-        control_frame = ttk.LabelFrame(left_panel, text="🎮 Controls", padding=10)
+        control_frame = ttk.LabelFrame(left_panel, text=" Controls", padding=10)
         control_frame.pack(fill='x', pady=5)
         
         self.start_btn = tk.Button(
             control_frame, 
-            text="▶ Start Monitoring",
+            text="Start Monitoring",
             command=self.start_monitoring,
             bg='#28a745',
             fg='white',
@@ -319,7 +319,7 @@ class HalloweenGUI:
         
         self.stop_btn = tk.Button(
             control_frame,
-            text="⏹ Stop",
+            text="Stop",
             command=self.stop_monitoring,
             bg='#dc3545',
             fg='white',
@@ -332,7 +332,7 @@ class HalloweenGUI:
         
         self.pause_btn = tk.Button(
             control_frame,
-            text="⏸ Pause Detection",
+            text="Pause Detection",
             command=self.toggle_pause,
             bg='#ffc107',
             fg='black',
@@ -345,7 +345,7 @@ class HalloweenGUI:
         
         self.test_btn = tk.Button(
             control_frame,
-            text="🔊 Test Sound",
+            text="Test Sound",
             command=self.test_sound,
             bg='#17a2b8',
             fg='white',
@@ -356,7 +356,7 @@ class HalloweenGUI:
         self.test_btn.pack(fill='x', pady=5)
         
         # Settings
-        settings_frame = ttk.LabelFrame(left_panel, text="⚙️ Detection Settings", padding=10)
+        settings_frame = ttk.LabelFrame(left_panel, text="Detection Settings", padding=10)
         settings_frame.pack(fill='x', pady=5)
         
         ttk.Label(settings_frame, text="Sensitivity:").pack(anchor='w')
@@ -405,26 +405,26 @@ class HalloweenGUI:
         self.area_scale.pack(fill='x')
         
         # Statistics
-        stats_frame = ttk.LabelFrame(left_panel, text="📊 Statistics", padding=10)
+        stats_frame = ttk.LabelFrame(left_panel, text="Statistics", padding=10)
         stats_frame.pack(fill='x', pady=5)
         
         self.stats_label = ttk.Label(stats_frame, text="", justify='left')
         self.stats_label.pack(anchor='w')
         
         # Audio info
-        audio_frame = ttk.LabelFrame(left_panel, text="🔊 Audio Files", padding=10)
+        audio_frame = ttk.LabelFrame(left_panel, text="Audio Files", padding=10)
         audio_frame.pack(fill='x', pady=5)
         
         audio_count = len(self.scare_system.audio_files)
         audio_text = f"Loaded: {audio_count} sound(s)"
         if audio_count == 0:
-            audio_text += "\n⚠️ Add files to 'scary_sounds' folder"
+            audio_text += "\nAdd files to 'scary_sounds' folder"
         
         ttk.Label(audio_frame, text=audio_text, justify='left').pack(anchor='w')
         
         reload_btn = tk.Button(
             audio_frame,
-            text="🔄 Reload Sounds",
+            text="Reload Sounds",
             command=self.reload_sounds,
             bg='#6c757d',
             fg='white',
@@ -437,14 +437,14 @@ class HalloweenGUI:
         right_panel.pack(side='right', fill='both', expand=True, padx=5)
         
         # Main video feed
-        video_frame = ttk.LabelFrame(right_panel, text="📺 Live Feed", padding=5)
+        video_frame = ttk.LabelFrame(right_panel, text="Live Feed", padding=5)
         video_frame.pack(fill='both', expand=True, pady=(0, 5))
         
         self.video_label = tk.Label(video_frame, bg='black')
         self.video_label.pack(fill='both', expand=True)
         
         # Motion detection feed
-        motion_frame = ttk.LabelFrame(right_panel, text="🔴 Motion Detection", padding=5)
+        motion_frame = ttk.LabelFrame(right_panel, text="Motion Detection", padding=5)
         motion_frame.pack(fill='both', expand=True)
         
         self.motion_label = tk.Label(motion_frame, bg='black')
@@ -528,10 +528,10 @@ class HalloweenGUI:
         """Toggle motion detection pause"""
         self.scare_system.paused = not self.scare_system.paused
         if self.scare_system.paused:
-            self.pause_btn.config(text="▶ Resume Detection")
+            self.pause_btn.config(text="Resume Detection")
             self.status_label.config(text="Status: Detection Paused")
         else:
-            self.pause_btn.config(text="⏸ Pause Detection")
+            self.pause_btn.config(text="Pause Detection")
             self.status_label.config(text="Status: Monitoring for motion...")
     
     def update_video(self):
